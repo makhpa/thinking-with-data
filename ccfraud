@@ -1,0 +1,168 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+
+# Load the data
+df = pd.read_csv("creditcard.csv")
+
+# Split the data into features and target
+X = df.drop(['Class'], axis=1)
+y = df['Class']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Train the model
+model = RandomForestClassifier(n_estimators=100)
+model.fit(X_train, y_train)
+
+# Predict on the test set
+y_pred = model.predict(X_test)
+
+# Evaluate the model performance
+print(classification_report(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
+
+
+
+
+Sure! Here is a step-by-step explanation of the code:
+1.	Import required libraries:
+pythonCopy code
+import pandas as pd from sklearn.model_selection import train_test_split from sklearn.ensemble import RandomForestClassifier from sklearn.metrics import classification_report, confusion_matrix 
+•	pandas is used to load and manipulate the data.
+•	train_test_split from sklearn.model_selection is used to split the data into training and testing sets.
+•	RandomForestClassifier from sklearn.ensemble is used as the machine learning algorithm for fraud detection.
+•	classification_report and confusion_matrix from sklearn.metrics are used to evaluate the performance of the model.
+2.	Load the data:
+bashCopy code
+df = pd.read_csv("creditcard.csv") 
+Here, the credit card fraud dataset is loaded into a Pandas DataFrame called df.
+3.	Split the data into features and target:
+cssCopy code
+X = df.drop(['Class'], axis=1) y = df['Class'] 
+The features of the data are stored in the variable X, which is created by dropping the Class column from the DataFrame df. The target, which is the column indicating whether a transaction is fraud or not, is stored in the variable y.
+4.	Split the data into training and testing sets:
+scssCopy code
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0) 
+The data is split into training and testing sets using train_test_split. The function takes in the features X and target y, and returns 4 variables: X_train, X_test, y_train, and y_test. The test_size argument is set to 0.2, meaning 20% of the data will be used for testing and 80% will be used for training. The random_state argument is set to 0 to ensure reproducibility.
+5.	Train the model:
+scssCopy code
+model = RandomForestClassifier(n_estimators=100) model.fit(X_train, y_train) 
+A RandomForestClassifier is created with n_estimators=100, meaning 100 trees will be used in the forest. The fit method is then called on the model to train it on the training data X_train and y_train.
+6.	Predict on the test set:
+makefileCopy code
+y_pred = model.predict(X_test) 
+The model's predictions on the test set are stored in the variable y_pred. The predict method is called on the trained model and passed the test set features X_test.
+7.	Evaluate the model performance:
+scssCopy code
+print(classification_report(y_test, y_pred)) print(confusion_matrix(y_test, y_pred)) 
+The performance of the model
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from xgboost import XGBClassifier
+import lightgbm as lgb
+from catboost import CatBoostClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+
+# Load the data
+df = pd.read_csv("creditcard.csv")
+
+# Split the data into features and target
+X = df.drop(['Class'], axis=1)
+y = df['Class']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Train the XGBoost model
+xgb_model = XGBClassifier(n_jobs=-1)
+xgb_model.fit(X_train, y_train)
+
+# Train the LightGBM model
+lgb_model = lgb.LGBMClassifier()
+lgb_model.fit(X_train, y_train)
+
+# Train the CatBoost model
+catboost_model = CatBoostClassifier(silent=True)
+catboost_model.fit(X_train, y_train)
+
+# Make predictions on the test set using the XGBoost model
+y_pred_xgb = xgb_model.predict(X_test)
+
+# Make predictions on the test set using the LightGBM model
+y_pred_lgb = lgb_model.predict(X_test)
+
+# Make predictions on the test set using the CatBoost model
+y_pred_catboost = catboost_model.predict(X_test)
+
+# Combine the predictions from all models using a majority vote
+y_pred = (y_pred_xgb + y_pred_lgb + y_pred_catboost >= 2).astype(int)
+
+# Evaluate the ensemble model's performance
+print(classification_report(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
+
+
+
+The code generates an ensemble of three models (XGBoost, LightGBM, and CatBoost) for credit card fraud detection and predicts the target (fraud or not fraud) for the test data. The performance of the model can be evaluated using metrics such as accuracy, precision, and recall.
+The code computes the precision, recall, and f1-score using the classification_report function from the sklearn.metrics module. The confusion matrix can also be computed using the confusion_matrix function. The accuracy can be computed as the average of the diagonal entries of the confusion matrix divided by the total number of test samples.
+Here's an example of how to extract the accuracy, precision, and recall from the output:
+
+
+
+print(classification_report(y_test, y_pred))
+cm = confusion_matrix(y_test, y_pred)
+
+accuracy = (cm[0][0] + cm[1][1]) / cm.sum()
+precision = cm[1][1] / (cm[0][1] + cm[1][1])
+recall = cm[1][1] / (cm[1][0] + cm[1][1])
+
+print("Accuracy:", accuracy)
+print("Precision:", precision)
+print("Recall:", recall)
+
+
+
+
+
+
+
+
+
+
+The code generates an ensemble of three models (XGBoost, LightGBM, and CatBoost) for credit card fraud detection and predicts the target (fraud or not fraud) for the test data. Here is a step-by-step explanation of the code:
+1.	Import the necessary libraries: pandas is used to load and manipulate the data, train_test_split from sklearn.model_selection is used to split the data into training and testing sets, XGBClassifier, LGBMClassifier, and CatBoostClassifier from xgboost, lightgbm, and catboost libraries, respectively, are used to train the models, and classification_report and confusion_matrix from sklearn.metrics are used to evaluate the performance of the model.
+2.	Load the data using the read_csv function from pandas and store it in a DataFrame called df.
+3.	Split the data into features and target by dropping the 'Class' column (which represents the target) from df and storing it in y, and keeping the remaining columns in X.
+4.	Split the data into training and testing sets using the train_test_split function.
+5.	Train the XGBoost model using the XGBClassifier class and fit it to the training data.
+6.	Train the LightGBM model using the LGBMClassifier class and fit it to the training data.
+7.	Train the CatBoost model using the CatBoostClassifier class and fit it to the training data.
+8.	Use the predict method to make predictions on the test set for each of the three models.
+9.	Combine the predictions from all models using a majority vote by summing up the predictions and converting the result to an integer. If the sum is equal to or greater than 2, the prediction is set to 1 (fraud), otherwise, it's set to 0 (not fraud).
+10.	Evaluate the performance of the ensemble model using the classification_report and confusion_matrix functions. The precision, recall, and f1-score are reported, and the confusion matrix is printed. The accuracy can be computed as the average of the diagonal entries of the confusion matrix divided by the total number of test samples.
+
+
