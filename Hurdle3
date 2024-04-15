@@ -1,0 +1,14 @@
+def lap():
+   turn_left()
+   move()
+   turnright()
+   move()
+   turnright()
+   move()
+   turn_left()
+    
+while not at_goal():
+   if front_is_clear():
+    move()
+   else:
+    lap()
