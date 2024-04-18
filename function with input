@@ -4,10 +4,42 @@ def greet():
   print("Isn't the weather nice today?")
 greet()
 
-#Function that allows for input
-#'name' is the parameter.
-#'Jack Bauer' is the argument.
+# #Function that allows for input
+# #'name' is the parameter.
+# #'Jack Bauer' is the argument.
 def greet_with_name(name):
   print(f"Hello {name}")
   print(f"How do you do {name}?")
 greet_with_name("Jack Bauer")   
+
+#Functions with more than 1 input
+def greet_with_name_age(name, age):
+  print(f"Hello {name}")
+  print(f"You are now {age} years old?")
+greet_with_name_age("ParthMakhija", "34")
+
+# Position of the argument matter, if interchanged they will do the function inter changebly
+def greet_with_name(name, age):
+  print(f"Hello {name}")
+  print(f"You are now {age} years old?")
+greet_with_name("34", "ParthMakhija")
+
+#KEYWORD PARAMETER - less error prone
+
+def greet_with_name(name, age):
+   
+  print(f"Hello {name}")
+  print(f"You are now {age} years old?")
+greet_with_name(name = "ParthMakhija", age = "34")  
+
+# PRIME NUMBER CHECKER
+def prime_checker(number):
+    for  i in range(2, number) :
+      if number % i == 0:
+         print("Not a Prime number")
+         break
+    
+    print("prime number")
+        
+n = int(input("Enter a number:"))
+prime_checker(number = n)
