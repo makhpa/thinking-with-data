@@ -38,8 +38,21 @@ def prime_checker(number):
       if number % i == 0:
          print("Not a Prime number")
          break
-    
+      else:
     print("prime number")
         
 n = int(input("Enter a number:"))
 prime_checker(number = n)
+
+
+def prime_checker1(number):
+    is_prime = True
+    for  i in range(2, number) :
+      if number % i == 0:
+         is_prime = False
+    if is_prime:
+        print("prime number")
+    else:
+        print("not a prime")
+n = int(input("Enter a number:"))
+prime_checker1(number = n)
